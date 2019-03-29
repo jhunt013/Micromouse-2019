@@ -1,0 +1,42 @@
+//initialize pins
+int motorEN = 7;        //enable
+int motorLogic1 = 6;    //pwm 1
+int motorLogic2 = 5;    //pwm 2
+int motorSpeed = 255; 
+
+void setup(){
+    //runs once, setup up pins to control motors
+    pinMode(motorEN, OUTPUT);
+    pinMode(motorLogic1, OUTPUT);
+    pinMode(motorLogic2, OUTPUT);
+    digitalWrite(motorEN, LOW);
+}
+
+
+void forward(){ //turn on motors
+    digitalWrite(motorEN, HIGH);
+    //digitalWrite(motorLogic1, HIGH);      //output high to motor's forward/reverse pin
+    analogWrite(motorLogic1, motorSpeed);
+    digitalWrite(motorLogic2, LOW);         //output low to motor's other forward/reverse pin
+    // forward/reverse interchangable as long as one is high and other is low
+}
+
+//don't make DC motros reverse all the sudden while its moving foward
+//could stall and damage motor and motor driver
+
+void reverse(){
+    digitalWrite(motorEN, HIGH);
+    digitalWrite(motorLogic1, LOW);         //output low to motor's forward/reverse pin
+    //digitalWrite(motorLogic2, HIGH);      //output high to motor's other forward/reverse pin
+    analogWrite(motorLogic2, motorSpeed);
+}
+
+void loop(){
+   forward();
+   delay(1000);
+   reverse();
+   delay(1000);
+   
+}
+
+
