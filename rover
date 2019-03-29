@@ -1,0 +1,59 @@
+int speed1 = 6; //motor 1 speed control
+int speed2 = 5; //motor 2 speed control
+int motor1 = 8; //motor 1 direction control
+int motor2 = 7; //motor 2 direction control
+int maxSpeed = 120;
+
+int sensor = A0;
+int sensorReading;
+
+void setup(){
+//setup pins to control motor 1 & 2 speed and direction (forward/reverse?)
+pinMode(speed1, OUTPUT); 
+pinMode(speed2, OUTPUT); 
+pinMode(motor1, OUTPUT);
+pinMode(motor2, OUTPUT);
+
+Serial.begin(9600);
+pinMode(sensor, INPUT);
+
+}
+
+void forward(){
+digitalWrite(motor1, HIGH);
+digitalWrite(motor2, HIGH);
+analogWrite(speed1, maxSpeed);
+analogWrite(speed2, maxSpeed);
+
+void reverse(){
+digitalWrite(motor1, LOW);
+digitalWrite(motor2, LOW);
+analogWrite(speed1, maxSpeed);
+analogWrite(speed2, maxSpeed);
+
+
+void stop (){                   //set speed to 0
+digitalWrite(motor1, LOW);
+digitalWrite(motor2, LOW);
+analogWrite(speed1, 0);
+analogWrite(speed2, 0);
+}
+
+void loop(){
+    /*
+    // test motors
+    forward();
+    delay(1000);
+    reverse();
+    delay(1000); 
+    */
+    
+    //records and displays sensor readings to serial monitor
+    sensorReading = analogRead(sensor);
+    Serial.println(sensorReading);
+    Serial.println();
+    delay(100);
+    
+    //use if statements to make rover move forward/back depending on sensor readings
+}
+
